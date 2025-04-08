@@ -122,7 +122,7 @@ echo "font_path = ${install_path}/resources/CircularStd-Bold.otf" >> ${install_p
 echo "font_size_title = 45" >> ${install_path}/config/eink_options.ini
 echo "font_size_artist = 35" >> ${install_path}/config/eink_options.ini
 echo "; Color of text for display readability" >> ${install_path}/config/eink_options.ini
-echo "; ie. inky phat (red, yellow, white)" >> ${install_path}/config/eink_options.ini
+echo "; ie. inky phat (red, yellow, white, black)" >> ${install_path}/config/eink_options.ini
 echo "text_color = white" >> ${install_path}/config/eink_options.ini
 echo "text_shadow_color = black" >> ${install_path}/config/eink_options.ini
 echo "offset_px_left = 20" >> ${install_path}/config/eink_options.ini
