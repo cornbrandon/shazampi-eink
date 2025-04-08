@@ -57,7 +57,7 @@ class ShazampiEinkDisplay:
         units = self.config.get('DEFAULT', 'units')
 
         # delay
-        if self.config.get('DEFAULT', 'delay_override'):
+        if self.config.has_option('DEFAULT', 'delay_override'):
             self.delay = int(self.config.get('DEFAULT', 'delay_override'))
 
         self.weather_service = WeatherService(api_key=openweathermap_api_key,
@@ -404,11 +404,10 @@ class ShazampiEinkDisplay:
                             if song_info:
                                 self.logger.debug("identified....")
                                 # update remaining time to wait for next re-identify
-                                if song_info.song_duration is None or song_info.offset is None or self.config.getint('DEFAULT', 'delay_override'):
-                                    if self.config.getint('DEFAULT', 'delay_override'):
-                                        song_end_duration_left = self.config.getint('DEFAULT', 'delay_override')
-                                    else:
-                                        song_end_duration_left = self.delay
+                                if self.config.has_option('DEFAULT', 'delay_override'):
+                                    song_end_duration_left = self.config.getint('DEFAULT', 'delay_override')
+                                elif song_info.song_duration is None or song_info.offset is None:
+                                    song_end_duration_left = self.delay
                                 else:
                                     song_end_duration_left = max(self.delay,
                                                                  song_info.song_duration-song_info.offset-self.recording_duration)
