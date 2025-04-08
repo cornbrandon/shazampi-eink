@@ -28,7 +28,7 @@ if [ -d "shazampi-eink" ]; then
 fi
 echo
 echo "###### Clone shazampi-eink git"
-git clone https://github.com/ravi72munde/shazampi-eink
+git clone https://github.com/cornbrandon/shazampi-eink
 echo "Switching into installation directory"
 cd shazampi-eink
 install_path=$(pwd)
