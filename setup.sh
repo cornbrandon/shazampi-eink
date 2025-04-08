@@ -60,7 +60,7 @@ options=("Pimoroni Inky pHAT 2.13 (212x104)" "Pimoroni Inky Impression 4 (640x40
 select opt in "${options[@]}"
 do
     case $opt in
-        "Pimoroni Inky Impression 4 (640x400)")
+        "Pimoroni Inky pHat 2.13 (212x104)")
             echo "[DEFAULT]" >> ${install_path}/config/eink_options.ini
             echo "width = 212" >> ${install_path}/config/eink_options.ini
             echo "height = 104" >> ${install_path}/config/eink_options.ini
