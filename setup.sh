@@ -106,11 +106,16 @@ echo "album_cover_small = True" >> ${install_path}/config/eink_options.ini
 echo "; cleans the display every 20 picture" >> ${install_path}/config/eink_options.ini
 echo "; this takes ~60 seconds" >> ${install_path}/config/eink_options.ini
 echo "display_refresh_counter = 20" >> ${install_path}/config/eink_options.ini
+echo "delay_override = 20" >> ${install_path}/config/eink_options.ini
 echo "shazampi_log = ${install_path}/log/shazampi.log" >> ${install_path}/config/eink_options.ini
 echo "no_song_cover = ${install_path}/resources/default.jpg" >> ${install_path}/config/eink_options.ini
 echo "font_path = ${install_path}/resources/CircularStd-Bold.otf" >> ${install_path}/config/eink_options.ini
 echo "font_size_title = 45" >> ${install_path}/config/eink_options.ini
 echo "font_size_artist = 35" >> ${install_path}/config/eink_options.ini
+echo "; Color of text for display readability" >> ${install_path}/config/eink_options.ini
+echo "; ie. inky phat (red, yellow, white)" >> ${install_path}/config/eink_options.ini
+echo "text_color = white" >> ${install_path}/config/eink_options.ini
+echo "text_shadow_color = black" >> ${install_path}/config/eink_options.ini
 echo "offset_px_left = 20" >> ${install_path}/config/eink_options.ini
 echo "offset_px_right = 20" >> ${install_path}/config/eink_options.ini
 echo "offset_px_top = 0" >> ${install_path}/config/eink_options.ini
