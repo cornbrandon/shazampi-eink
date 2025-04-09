@@ -434,13 +434,17 @@ class ShazampiEinkDisplay:
 
                         # no need to reset everytime
                         if self.current_view != ViewState.NOTHING_PLAYING:
-                            self._display_update_process(weather_info=weather_info)
-                            prev_song_title = None
+                            if not self.config.has_option('DEFAULT', 'enable_weather'):
+                                self._display_update_process(weather_info=weather_info)
+                                prev_song_title = None
+                            elif self.config.getboolean('DEFAULT', 'enable_weather'):
+                                self._display_update_process(weather_info=weather_info)
+                                prev_song_title = None
 
                         # weather data outdated after 30 min, update
                         elif datetime.datetime.now() - weather_info['fetched_at'] >= datetime.timedelta(minutes=30):
+                            # update weather data, no need to display here it should display after the delay timer
                             weather_info = self.weather_service.get_weather_data()
-                            self._display_update_process(weather_info=weather_info)
                             self.current_view = ViewState.NOTHING_PLAYING
 
                         self.current_view = ViewState.NOTHING_PLAYING
