@@ -77,7 +77,7 @@ class ShazampiEinkDisplay:
             self.logger.info('Loading Pimoroni inky lib')
         if self.config.get('DEFAULT', 'model') == 'inky-phat':
             from inky.auto import auto
-            from inky.inky_uc8159 import CLEAN
+            from inky.inky_ssd1608 import CLEAN
             self.inky_auto = auto
             self.inky_clean = CLEAN
             self.logger.info('Loading Pimoroni inky lib')
