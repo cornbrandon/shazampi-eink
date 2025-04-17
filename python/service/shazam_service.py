@@ -9,8 +9,11 @@ logger = logging.getLogger(__name__)
 
 
 class ShazamService:
-    def __init__(self):
+    def __init__(self, fetch_duration=True):
         self.shazam = Shazam()
+        # this is an extra call, if we don't need duration
+        # we can skip this call and save some time
+        self.fetch_duration = True
 
     async def _recognize_song(self, audio_wav_buffer):
         return await self.shazam.recognize(audio_wav_buffer.read())
@@ -25,7 +28,10 @@ class ShazamService:
                 album_art = track.get('images', {}).get('coverart', 'No cover art available')
                 isrc = track.get('isrc', {})
                 offset = result['matches'][0].get('offset', {})
-                song_duration = fetch_song_duration(isrc)
+                if self.fetch_duration:
+                    song_duration = fetch_song_duration(isrc)
+                else:
+                    song_duration = 0
                 return {
                     'title': track.get('title', 'Unknown'),
                     'artist': track.get('subtitle', 'Unknown'),
