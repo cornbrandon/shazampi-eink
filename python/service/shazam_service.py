@@ -13,7 +13,7 @@ class ShazamService:
         self.shazam = Shazam()
         # this is an extra call, if we don't need duration
         # we can skip this call and save some time
-        self.fetch_duration = True
+        self.fetch_duration = fetch_duration
 
     async def _recognize_song(self, audio_wav_buffer):
         return await self.shazam.recognize(audio_wav_buffer.read())
@@ -31,7 +31,7 @@ class ShazamService:
                 if self.fetch_duration:
                     song_duration = fetch_song_duration(isrc)
                 else:
-                    song_duration = 0
+                    song_duration = None
                 return {
                     'title': track.get('title', 'Unknown'),
                     'artist': track.get('subtitle', 'Unknown'),

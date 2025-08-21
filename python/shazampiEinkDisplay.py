@@ -50,7 +50,7 @@ class ShazampiEinkDisplay:
         # setup services
         self.audio_service = AudioService()
         self.music_detector = MusicDetector(self.recording_duration)
-        self.shazam_service = ShazamService(fetch_duration=False)
+        self.shazam_service = ShazamService(fetch_duration=(not bool(self.config.get('DEFAULT', 'fast_mode'))) )
 
         openweathermap_api_key = self.config.get('DEFAULT', 'openweathermap_api_key')
         geo_coordinates = self.config.get('DEFAULT', 'geo_coordinates')
@@ -339,7 +339,6 @@ class ShazampiEinkDisplay:
             image = self._gen_pic(Image.open(requests.get(song_info.album_art, stream=True).raw), song_info.artist,
                                   song_info.title)
         elif weather_info:
-
             # not song playing use logo + weather info
             image = self._gen_pic(Image.open(self.config.get('DEFAULT', 'no_song_cover')),
                                   weather_info['weather_sub_description'],
@@ -402,9 +401,7 @@ class ShazampiEinkDisplay:
                             if song_info:
                                 self.logger.debug("identified....")
                                 # update remaining time to wait for next re-identify
-                                if self.config.has_option('DEFAULT', 'delay_override'):
-                                    song_end_duration_left = self.config.getint('DEFAULT', 'delay_override')
-                                elif song_info.song_duration is None or song_info.offset is None:
+                                if song_info.song_duration is None or song_info.offset is None:
                                     song_end_duration_left = self.delay
                                 else:
                                     song_end_duration_left = max(self.delay,
