@@ -50,7 +50,7 @@ class ShazampiEinkDisplay:
         # setup services
         self.audio_service = AudioService()
         self.music_detector = MusicDetector(self.recording_duration)
-        self.shazam_service = ShazamService()
+        self.shazam_service = ShazamService(fetch_duration=False)
 
         openweathermap_api_key = self.config.get('DEFAULT', 'openweathermap_api_key')
         geo_coordinates = self.config.get('DEFAULT', 'geo_coordinates')
@@ -182,9 +182,9 @@ class ShazampiEinkDisplay:
             if self.config.get('DEFAULT', 'model') == 'inky-phat':
                 inky = self.inky_auto()
                 for _ in range(2):
-                    for y in range(inky.height - 1):
-                        for x in range(inky.width - 1):
-                            inky.set_pixel(x, y, self.inky_clean)
+                    # for y in range(inky.height - 1):
+                        # for x in range(inky.width - 1):
+                            # inky.set_pixel(x, y, self.inky_clean)
                     inky.show()
                     time.sleep(1.0)
             if self.config.get('DEFAULT', 'model') == 'waveshare4':
@@ -411,7 +411,7 @@ class ShazampiEinkDisplay:
                                                                  song_info.song_duration-song_info.offset-self.recording_duration)
                             else:
                                 self.logger.debug("couldn't identify the song")
-                                song_end_duration_left = 30  # couldn't identify song so retry in 30 sec
+                                song_end_duration_left = self.delay  # couldn't identify song so retry in 30 sec
 
                             self.logger.debug(f"won't re-identify for {song_end_duration_left} seconds")
 
