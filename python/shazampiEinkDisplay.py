@@ -434,7 +434,7 @@ class ShazampiEinkDisplay:
                         # no need to reset everytime
                         if self.current_view != ViewState.NOTHING_PLAYING:
                             # get weather if we have it enabled
-                            if not self.config.has_option('DEFAULT', 'enable_weather'):
+                            if self.config.has_option('DEFAULT', 'enable_weather'):
                                 if self.config.getboolean('DEFAULT', 'enable_weather'):
                                     self._display_update_process(weather_info=weather_info)
                                     prev_song_title = None
