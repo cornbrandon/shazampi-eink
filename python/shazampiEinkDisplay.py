@@ -39,6 +39,10 @@ class ShazampiEinkDisplay:
         # Configuration for the matrix
         self.config = configparser.ConfigParser()
         self.config.read(os.path.join(os.path.dirname(__file__), '..', 'config', 'eink_options.ini'))
+        if self.config.has_option('DEFAULT', 'fast_mode'):
+            self.fast_mode = self.config.getboolean('DEFAULT', 'fast_mode')
+        else:
+            self.fast_mode = False
         # set shazampi lib logger
         logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y-%m-%d %H:%M:%S',
                             filename=self.config.get('DEFAULT', 'shazampi_log'), level=logging.INFO)
@@ -50,7 +54,7 @@ class ShazampiEinkDisplay:
         # setup services
         self.audio_service = AudioService()
         self.music_detector = MusicDetector(self.recording_duration)
-        self.shazam_service = ShazamService(fetch_duration=(not bool(self.config.get('DEFAULT', 'fast_mode'))) )
+        self.shazam_service = ShazamService(fetch_duration = (not self.fast_mode))
 
         openweathermap_api_key = self.config.get('DEFAULT', 'openweathermap_api_key')
         geo_coordinates = self.config.get('DEFAULT', 'geo_coordinates')
